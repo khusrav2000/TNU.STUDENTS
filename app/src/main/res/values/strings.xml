@@ -12,4 +12,9 @@
     <string name="university_name">Донишгоҳи миллии Тоҷикистон</string>
     <string name="login">Логин</string>
     <string name="password">Гузарвожа</string>
+    <string name="lesson_name">Lesson name</string>
+    <string name="teacher_name">Teacher name</string>
+    <string name="points">Холҳо</string>
+    <string name="title_points">Холҳо</string>
+    <string name="title_profile">profile</string>
 </resources>

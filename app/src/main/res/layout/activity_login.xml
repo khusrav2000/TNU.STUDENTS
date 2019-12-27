@@ -83,8 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/login_button"
-                android:enabled="false"
+                android:background="@drawable/button_click_effect"
                 android:fontFamily="@font/roboto_regular"
                 android:letterSpacing="0.1"
                 android:paddingStart="40dp"
@@ -95,7 +94,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="25sp"
-
                 android:textStyle="bold" />
 
             <ProgressBar
