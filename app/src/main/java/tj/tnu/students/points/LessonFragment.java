@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import tj.tnu.students.Data;
 import tj.tnu.students.R;
-import tj.tnu.students.data.model.Courses;
 
 /**
  * A fragment representing a list of Items.
@@ -102,7 +101,9 @@ public class LessonFragment extends Fragment {
     }
 
     public void setCourseAdapter() {
-        recyclerView.setAdapter(new MylessonRecyclerViewAdapter(Data.getCourses(), mListener));
+        if (Data.getCourses() != null) {
+            recyclerView.setAdapter(new MylessonRecyclerViewAdapter(Data.getCourses(), mListener));
+        }
     }
 
     public void dismissSelectSemester(){
@@ -131,7 +132,7 @@ public class LessonFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Courses item);
+        void onListFragmentInteraction(int position);
         void onSelectSemester(int semesterId, int position);
     }
 

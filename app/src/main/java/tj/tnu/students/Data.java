@@ -2,13 +2,13 @@ package tj.tnu.students;
 
 import java.util.List;
 
-import tj.tnu.students.data.model.Courses;
+import tj.tnu.students.data.model.Course;
 import tj.tnu.students.data.model.Profile;
-import tj.tnu.students.data.model.Semesters;
+import tj.tnu.students.data.model.Semester;
 
 public class Data {
-    public static List<Courses> courses;
-    public static List<Semesters> semesters;
+    public static List<Course> cours;
+    public static List<Semester> semesters;
     public static Profile profile;
 
     public static Profile getProfile() {
@@ -19,19 +19,19 @@ public class Data {
         Data.profile = profile;
     }
 
-    public static List<Courses> getCourses() {
-        return courses;
+    public static List<Course> getCourses() {
+        return cours;
     }
 
-    public static void setCourses(List<Courses> courses) {
-        Data.courses = courses;
+    public static void setCourses(List<Course> cours) {
+        Data.cours = cours;
     }
 
-    public static List<Semesters> getSemesters() {
+    public static List<Semester> getSemesters() {
         return semesters;
     }
 
-    public static void setSemesters(List<Semesters> semesters) {
+    public static void setSemesters(List<Semester> semesters) {
         Data.semesters = semesters;
     }
 }

@@ -4,22 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import tj.tnu.students.data.model.Courses;
-import tj.tnu.students.data.model.Profile;
-import tj.tnu.students.data.model.Semesters;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import tj.tnu.students.data.NetworkClient;
+import tj.tnu.students.data.apis.Studetns;
+import tj.tnu.students.data.model.Course;
+import tj.tnu.students.data.model.Semester;
 import tj.tnu.students.points.CoursePoints;
 import tj.tnu.students.points.LessonFragment;
 
@@ -30,13 +34,17 @@ public class MainActivity extends AppCompatActivity implements LessonFragment.On
     LessonFragment lessonFragment;
     ProfileFragment profileFragment = ProfileFragment.newInstance();
 
+    public static final String APP_PREFERENCES = "SkipLoginPhone";
+    public static final String APP_TOKEN = "getToken";
+    SharedPreferences skipLoginPhone;
+    String token = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainFragment = findViewById(R.id.main_fragment);
 
-        downloadAndSetSemestersData();
         downloadAndSetCoursesData();
 
         lessonFragment = new LessonFragment();
@@ -60,65 +68,68 @@ public class MainActivity extends AppCompatActivity implements LessonFragment.On
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main_fragment, lessonFragment);
         ft.commit();
+        skipLoginPhone  = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        token    = skipLoginPhone.getString(APP_TOKEN, "");
 
-        Profile profile = new Profile("2018010294","Ашурзода Хусрав Абдусамад", "механикаю математика",
+        /*Profile profile = new Profile("2018010294","Ашурзода Хусрав Абдусамад", "механикаю математика",
                 "Математикаи амали", "31030302", "Рузона", "бакалавр",
                 2, "ТАС", "25/12/2019", 4);
-        Data.setProfile(profile);
+        Data.setProfile(profile);*/
+
 
     }
 
-    private void downloadAndSetSemestersData() {
-        List<Semesters> semestersList = new ArrayList<>();
-        Semesters semesters = new Semesters( "2015/2016 Нимосолаи 1", 1, false);
-        semestersList.add(semesters);
-        semesters = new Semesters( "2015/2016 Нимосолаи 2", 2, false);
-        semestersList.add(semesters);
-        semesters = new Semesters( "2016/2017 Нимосолаи 1", 3, true);
-        semestersList.add(semesters);
-        semesters = new Semesters( "2016/2017 Нимосолаи 2", 4, false);
-        semestersList.add(semesters);
-        Data.setSemesters(semestersList);
-    }
 
     private void downloadAndSetCoursesData() {
-        List<Courses> coursesList = new ArrayList<>();
-        Courses courses;
-        courses = new Courses("Таҳлили математика", "Юсупов", 20.2, 0);
-        coursesList.add(courses);
-        courses = new Courses("Диншиноси", "Амирбекова И.", 40.5, 0);
-        coursesList.add(courses);
-        courses = new Courses("Ҳуқуқ", "Сафарзода Н", 80.2, 0);
-        coursesList.add(courses);
-        courses = new Courses("Географияи Тоҷикистон бо асосҳои демографии он.", "Юнусов Талабшо.", 2.0, 0);
-        coursesList.add(courses);
-        Data.setCourses(coursesList);
+
+        //Data.setCours(coursesList);
 
     }
 
 
     @Override
-    public void onListFragmentInteraction(Courses item) {
+    public void onListFragmentInteraction(int position) {
         System.out.println("CLICK");
         Intent intent = new Intent(this, CoursePoints.class);
-        intent.putExtra("CourseId", item.getCourseId());
+        intent.putExtra("CoursePosition", position);
         startActivity(intent);
     }
 
     @Override
     public void onSelectSemester(int semesterId, int position) {
         downloadAndSetCoursesData();
-        List<Semesters> semestersList = Data.getSemesters();
-        for (Semesters semesters : semestersList){
+        List<Semester> semestersList = Data.getSemesters();
+        for (Semester semesters : semestersList){
             semesters.setActive(false);
         }
         semestersList.get(position).setActive(true);
         Data.setSemesters(semestersList);
-        System.out.println(" == " + semesterId + position);
 
-        lessonFragment.setCourseAdapter();
+        Retrofit retrofit = NetworkClient.getRetrofitClient();
+        Studetns studetns = retrofit.create(Studetns.class);
+        Call call = studetns.getCoursesBySemester(token, semesterId);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()){
+                    List<Course> courseList = (List<Course>) response.body();
+                    Data.setCourses(courseList);
+                    updateCoursesAdapter();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+
         lessonFragment.setSemestersAdapter();
         lessonFragment.dismissSelectSemester();
+    }
+
+    private void updateCoursesAdapter() {
+        lessonFragment.setCourseAdapter();
     }
 
     @Override

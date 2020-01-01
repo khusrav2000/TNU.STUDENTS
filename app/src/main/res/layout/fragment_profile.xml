@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginTop="5dp"
                     android:orientation="vertical">
                     <TextView
@@ -83,8 +84,16 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/profile_top_title_background">
-
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,6 +143,133 @@
                     android:textSize="17sp"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/training_form"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/training_form"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/training_level"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/training_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/course_and_training_period"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/course_and_training_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/group"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year_entrance"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/year_entrance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
 
 
         </LinearLayout>

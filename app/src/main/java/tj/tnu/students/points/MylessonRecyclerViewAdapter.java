@@ -1,9 +1,7 @@
 package tj.tnu.students.points;
 
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import tj.tnu.students.R;
-import tj.tnu.students.data.model.Courses;
+import tj.tnu.students.data.model.Course;
 import tj.tnu.students.points.LessonFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
@@ -21,10 +19,10 @@ import java.util.List;
 
 public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Courses> mValues;
+    private final List<Course> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MylessonRecyclerViewAdapter(List<Courses> items, OnListFragmentInteractionListener listener) {
+    public MylessonRecyclerViewAdapter(List<Course> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -38,10 +36,10 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.courseName.setText(mValues.get(position).getCourseName());
-        holder.teacherName.setText(mValues.get(position).getTeacherName());
+        holder.courseName.setText(mValues.get(position).getSubjectName().getTjText());
+        holder.teacherName.setText(mValues.get(position).getTeacherName().getTjText());
 
 
         holder.pointsProgress.setProgress(Integer.valueOf((int) holder.mItem.getTotalPoints()));
@@ -59,7 +57,7 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
                     holder.courseLayout.setAlpha((float) 0.4);
                 } else if (event.getAction() == MotionEvent.ACTION_UP){
                     holder.courseLayout.setAlpha((float) 1);
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(position);
                 } else {
                     holder.courseLayout.setAlpha((float) 1);
                 }
@@ -80,7 +78,7 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
         public final View mView;
         public final TextView courseName;
         public final TextView teacherName;
-        public Courses mItem;
+        public Course mItem;
         private ProgressBar pointsProgress;
         private TextView totalPoints;
         private RelativeLayout courseLayout;

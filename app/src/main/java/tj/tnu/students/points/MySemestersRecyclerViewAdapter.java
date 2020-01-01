@@ -1,32 +1,25 @@
 package tj.tnu.students.points;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import tj.tnu.students.R;
-import tj.tnu.students.data.model.Courses;
-import tj.tnu.students.data.model.Semesters;
+import tj.tnu.students.data.model.Semester;
 
 public class MySemestersRecyclerViewAdapter extends RecyclerView.Adapter<MySemestersRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Semesters> mValues;
+    private final List<Semester> mValues;
     private final LessonFragment.OnListFragmentInteractionListener mListener;
     Activity activity;
 
-    public MySemestersRecyclerViewAdapter(Activity activity, List<Semesters> items, LessonFragment.OnListFragmentInteractionListener listener) {
+    public MySemestersRecyclerViewAdapter(Activity activity, List<Semester> items, LessonFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
         this.activity = activity;
@@ -68,7 +61,7 @@ public class MySemestersRecyclerViewAdapter extends RecyclerView.Adapter<MySemes
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public Semesters mItem;
+        public Semester mItem;
         public TextView semesterName;
         public ViewHolder(View view) {
             super(view);

@@ -1,19 +1,57 @@
 package tj.tnu.students.data.model;
 
+import android.widget.RelativeLayout;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Profile {
+
+    @SerializedName("RecordBookNumber")
+    @Expose
     String recordbookNumber;
-    String fullName;
-    String faculty;
-    String specialty;
+
+    @SerializedName("FullName")
+    @Expose
+    Language fullName;
+
+    @SerializedName("Faculty")
+    @Expose
+    Language faculty;
+
+    @SerializedName("Specialty")
+    @Expose
+    Language specialty;
+
+    @SerializedName("CodeSpecialty")
+    @Expose
     String codeSpecialty;
+
+    @SerializedName("TrainingForm")
+    @Expose
     String trainingForm;
+
+    @SerializedName("TrainingLevel")
+    @Expose
     String trainingLevel;
+
+    @SerializedName("Course")
+    @Expose
     int course;
+
+    @SerializedName("Group")
+    @Expose
     String group;
+
+    @SerializedName("YearUniversityEntrance")
+    @Expose
     String yearUniversityEntrance;
+
+    @SerializedName("TrainingPeriod")
+    @Expose
     int trainingPeriod;
 
-    public Profile(String recordbookNumber, String fullName, String faculty, String specialty, String codeSpecialty, String trainingForm, String trainingLevel, int course, String group, String yearUniversityEntrance, int trainingPeriod) {
+    public Profile(String recordbookNumber, Language fullName, Language faculty, Language specialty, String codeSpecialty, String trainingForm, String trainingLevel, int course, String group, String yearUniversityEntrance, int trainingPeriod) {
         this.recordbookNumber = recordbookNumber;
         this.fullName = fullName;
         this.faculty = faculty;
@@ -27,8 +65,6 @@ public class Profile {
         this.trainingPeriod = trainingPeriod;
     }
 
-
-
     public String getRecordbookNumber() {
         return recordbookNumber;
     }
@@ -37,27 +73,27 @@ public class Profile {
         this.recordbookNumber = recordbookNumber;
     }
 
-    public String getFullName() {
+    public Language getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(Language fullName) {
         this.fullName = fullName;
     }
 
-    public String getFaculty() {
+    public Language getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Language faculty) {
         this.faculty = faculty;
     }
 
-    public String getSpecialty() {
+    public Language getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(String specialty) {
+    public void setSpecialty(Language specialty) {
         this.specialty = specialty;
     }
 
@@ -121,9 +157,9 @@ public class Profile {
     public String toString() {
         return "Profile{" +
                 "recordbookNumber='" + recordbookNumber + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", faculty='" + faculty + '\'' +
-                ", specialty='" + specialty + '\'' +
+                ", fullName=" + fullName +
+                ", faculty=" + faculty +
+                ", specialty=" + specialty +
                 ", codeSpecialty='" + codeSpecialty + '\'' +
                 ", trainingForm='" + trainingForm + '\'' +
                 ", trainingLevel='" + trainingLevel + '\'' +
@@ -133,5 +169,4 @@ public class Profile {
                 ", trainingPeriod=" + trainingPeriod +
                 '}';
     }
-
 }

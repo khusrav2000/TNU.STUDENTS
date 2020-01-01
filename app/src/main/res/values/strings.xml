@@ -5,10 +5,10 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Воридшавӣ</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Хуш омадед "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="login_failed">Логин ё вожагузар нодуруст!</string>
     <string name="university_name">Донишгоҳи миллии Тоҷикистон</string>
     <string name="login">Логин</string>
     <string name="password">Гузарвожа</string>
@@ -18,11 +18,11 @@
     <string name="title_points">Холҳо</string>
     <string name="title_profile">profile</string>
     <string name="course_name">Course name</string>
-    <string name="rating_one">Рейтинг 1</string>
+    <string name="rating_one">РЕЙТИНГ 1</string>
     <string name="example_rating_points">30/100</string>
-    <string name="rating_two">Рейтинг 2</string>
+    <string name="rating_two">РЕЙТИНГ 2</string>
     <string name="example_exam_points">13/20</string>
-    <string name="exam_text">Имтиҳон</string>
+    <string name="exam_text">ИМТИҲОН</string>
     <string name="select_semester">Нисоларо интихоб кунед</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -33,4 +33,14 @@
     <string name="specialty">Specialty</string>
     <string name="specialty_and_code">Ихтисос</string>
     <string name="text_faculty">Факултет</string>
+    <string name="server_not_work">Сервер дастнораст аст.</string>
+    <string name="internet_not_available">Пайвастшавии интернети худро бисанҷед.</string>
+    <string name="error_load_data">Ошибка при загрузке данных.</string>
+    <string name="traning_form">Шакли хониш</string>
+    <string name="training_form">Шакли хониш</string>
+    <string name="training_level">Сатҳи маълумот</string>
+    <string name="course_and_training_period">Курс / давраи таҳсил</string>
+    <string name="group">Гуруҳ</string>
+    <string name="year_entrance">Соли дохилшави</string>
+    <string name="total_points">БАЛЛИ / БАҲОИ НОҲОИ</string>
 </resources>

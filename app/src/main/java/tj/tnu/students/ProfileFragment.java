@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import tj.tnu.students.data.model.Profile;
 
 
@@ -46,10 +48,20 @@ public class ProfileFragment extends Fragment {
         TextView recordBookNumber = view.findViewById(R.id.record_book_number);
         TextView faculty = view.findViewById(R.id.faculty);
         TextView specialty = view.findViewById(R.id.specialty_and_code);
-        fullName.setText(profile.getFullName());
+        TextView trainingFrom = view.findViewById(R.id.training_form);
+        TextView trainingLevel = view.findViewById(R.id.training_level);
+        TextView courseAndTrainingPeriod = view.findViewById(R.id.course_and_training_period);
+        TextView group = view.findViewById(R.id.group);
+        TextView yearEntrance = view.findViewById(R.id.year_entrance);
+        fullName.setText(profile.getFullName().getTjText());
         recordBookNumber.setText(profile.getRecordbookNumber());
-        faculty.setText(profile.getFaculty());
-        specialty.setText(profile.getSpecialty() + " / " + profile.getCodeSpecialty());
+        faculty.setText(profile.getFaculty().getTjText());
+        specialty.setText(profile.getSpecialty().getTjText() + " (" + profile.getCodeSpecialty() + ")");
+        trainingFrom.setText(profile.getTrainingForm());
+        trainingLevel.setText(profile.getTrainingLevel());
+        courseAndTrainingPeriod.setText(profile.getCourse() + " / " + profile.getTrainingPeriod());
+        group.setText(profile.getGroup());
+        yearEntrance.setText(profile.getYearUniversityEntrance());
 
         return view;
     }

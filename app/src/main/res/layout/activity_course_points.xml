@@ -27,6 +27,7 @@
         android:layout_marginTop="?attr/actionBarSize"
         android:background="@drawable/course_points_background">
         <TextView
+            android:id="@+id/course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -35,6 +36,7 @@
             android:textStyle="bold"
             android:text="@string/course_name"
             android:layout_marginTop="20dp"
+            android:letterSpacing="0.1"
             android:textSize="17sp"/>
         <ScrollView
             android:layout_width="match_parent"
@@ -60,7 +62,7 @@
                         android:layout_marginStart="20dp"/>
 
                     <TextView
-                        android:id="@+id/rating_one_points"
+                        android:id="@+id/rating_one_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -73,14 +75,15 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="1dp"
+                        android:alpha="0.3"
                         android:background="@color/line_color"
-                        android:layout_below="@id/rating_one_points"
+                        android:layout_below="@id/rating_one_point"
                         android:layout_marginTop="15dp"/>
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/rating_one_weeks_point"
+                    android:id="@+id/rating_one_week_points"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"/>
@@ -101,7 +104,7 @@
                         android:layout_marginStart="20dp"/>
 
                     <TextView
-                        android:id="@+id/rating_two_points"
+                        android:id="@+id/rating_two_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -114,13 +117,14 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="1dp"
+                        android:alpha="0.3"
                         android:background="@color/line_color"
-                        android:layout_below="@id/rating_two_points"
+                        android:layout_below="@id/rating_two_point"
                         android:layout_marginTop="15dp"/>
                 </RelativeLayout>
                 <LinearLayout
-                    android:id="@+id/rating_two_weeks_point"
+                    android:id="@+id/rating_two_week_points"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"/>
@@ -140,7 +144,7 @@
                         android:layout_marginStart="20dp"/>
 
                     <TextView
-                        android:id="@+id/exam_points"
+                        android:id="@+id/exam_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -153,9 +157,46 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
+                        android:layout_height="1dp"
+                        android:alpha="0.3"
                         android:background="@color/line_color"
-                        android:layout_below="@id/exam_points"
+                        android:layout_below="@id/exam_point"
+                        android:layout_marginTop="15dp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_points"
+                        android:textColor="@color/rating_color"
+                        android:textSize="17sp"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:layout_marginStart="20dp"/>
+
+                    <TextView
+                        android:id="@+id/total_points_and_mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/points_color"
+                        android:textSize="15sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:alpha="0.3"
+                        android:background="@color/line_color"
+                        android:layout_below="@id/total_points_and_mark"
                         android:layout_marginTop="15dp"/>
                 </RelativeLayout>
             </LinearLayout>

@@ -1,11 +1,21 @@
 package tj.tnu.students.data.model;
 
-public class Semesters {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Semester {
+
+    @SerializedName("AcademicYear")
+    @Expose
     String semesterName;
+
+    @SerializedName("ID")
+    @Expose
     int semesterId;
+
     boolean isActive;
 
-    public Semesters(String semesterName, int semesterId, boolean isActive) {
+    public Semester(String semesterName, int semesterId, boolean isActive) {
         this.semesterName = semesterName;
         this.semesterId = semesterId;
         this.isActive = isActive;
@@ -37,7 +47,7 @@ public class Semesters {
 
     @Override
     public String toString() {
-        return "Semesters{" +
+        return "Semester{" +
                 "semesterName='" + semesterName + '\'' +
                 ", semesterId=" + semesterId +
                 ", isActive=" + isActive +
