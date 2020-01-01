@@ -1,5 +1,6 @@
 package tj.tnu.students.points;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -11,11 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import tj.tnu.students.Data;
 import tj.tnu.students.R;
 import tj.tnu.students.data.model.Courses;
 
@@ -33,6 +31,8 @@ public class LessonFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     RecyclerView recyclerView;
+    Dialog semesters;
+    RecyclerView semestersRecyclerView;
 
 
     public LessonFragment() {
@@ -60,7 +60,15 @@ public class LessonFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lesson_list, container, false);
 
+
+        view.findViewById(R.id.button_select_semester).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                semesters.show();
+            }
+        });
         // Set the adapter
+
 
         Context context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
@@ -69,27 +77,38 @@ public class LessonFragment extends Fragment {
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        setAdapter();
 
+        semesters = new Dialog(getContext());
+        semesters.setContentView(R.layout.fragment_semesters_list);
+        semesters.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.select_semester_background));
+        semestersRecyclerView = semesters.findViewById(R.id.semester_list);
+        semestersRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        semesters.findViewById(R.id.select_semester_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                semesters.dismiss();
+            }
+        });
+
+        setSemestersAdapter();
+        setCourseAdapter();
 
         return view;
     }
 
-    private void setAdapter() {
-        List<Courses> coursesList = new ArrayList<>();
-        Courses courses;
-        courses = new Courses("Таҳлили математика", "Юсупов");
-        coursesList.add(courses);
-        courses = new Courses("Диншиноси", "Амирбекова И.");
-        coursesList.add(courses);
-        courses = new Courses("Ҳуқуқ", "Сафарзода Н");
-        coursesList.add(courses);
-        courses = new Courses("Географияи Тоҷикистон бо асосҳои демографии он.", "Юнусов Талабшо.");
-        coursesList.add(courses);
-
-
-        recyclerView.setAdapter(new MylessonRecyclerViewAdapter(coursesList, mListener));
+    public void setSemestersAdapter() {
+        System.out.println(Data.getSemesters().toString());
+        semestersRecyclerView.setAdapter(new MySemestersRecyclerViewAdapter(getActivity(), Data.getSemesters(), mListener));
     }
+
+    public void setCourseAdapter() {
+        recyclerView.setAdapter(new MylessonRecyclerViewAdapter(Data.getCourses(), mListener));
+    }
+
+    public void dismissSelectSemester(){
+        semesters.dismiss();
+    }
+
 
 
     @Override
@@ -113,5 +132,7 @@ public class LessonFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Courses item);
+        void onSelectSemester(int semesterId, int position);
     }
+
 }

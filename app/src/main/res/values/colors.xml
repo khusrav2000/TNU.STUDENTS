@@ -6,4 +6,9 @@
     <color name="white">#FFFFFF</color>
     <color name="grey">#B4B1B1</color>
     <color name="login_button">#9A1CE7</color>
+    <color name="rating_color">#747475</color>
+    <color name="line_color">#FFFFFF</color>
+    <color name="points_color">#AAAAAA</color>
+    <color name="green">#00FF0A</color>
+    <color name="selected_semester">#5E1263</color>
 </resources>

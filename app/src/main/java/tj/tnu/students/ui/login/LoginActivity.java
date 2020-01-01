@@ -97,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         };
+
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -116,12 +117,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO: Здесь все не впорядке.))
 
-                startMainActivity();
+                //startMainActivity();
+                loadingProgressBar.setVisibility(View.VISIBLE);
 
-
-                /*loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());*/
+                        passwordEditText.getText().toString());
+
             }
         });
     }

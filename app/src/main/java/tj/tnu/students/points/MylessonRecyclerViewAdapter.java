@@ -1,10 +1,15 @@
 package tj.tnu.students.points;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import tj.tnu.students.R;
@@ -31,20 +36,37 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.courseName.setText(mValues.get(position).getCourseName());
         holder.teacherName.setText(mValues.get(position).getTeacherName());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+
+        holder.pointsProgress.setProgress(Integer.valueOf((int) holder.mItem.getTotalPoints()));
+
+        holder.totalPoints.setText(String.valueOf(holder.mItem.getTotalPoints()));
+
+
+
+
+        holder.mView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    holder.courseLayout.setAlpha((float) 0.4);
+                } else if (event.getAction() == MotionEvent.ACTION_UP){
+                    holder.courseLayout.setAlpha((float) 1);
                     mListener.onListFragmentInteraction(holder.mItem);
+                } else {
+                    holder.courseLayout.setAlpha((float) 1);
                 }
+
+
+
+                return true;
             }
         });
     }
@@ -59,12 +81,17 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
         public final TextView courseName;
         public final TextView teacherName;
         public Courses mItem;
-
+        private ProgressBar pointsProgress;
+        private TextView totalPoints;
+        private RelativeLayout courseLayout;
         public ViewHolder(View view) {
             super(view);
             mView = view;
             courseName = view.findViewById(R.id.lesson_name);
             teacherName = view.findViewById(R.id.teacher_name);
+            pointsProgress = view.findViewById(R.id.progress_points);
+            totalPoints = view.findViewById(R.id.total_points);
+            courseLayout = view.findViewById(R.id.main_layout_course);
 
         }
 
@@ -73,4 +100,5 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
             return super.toString() + " '" + courseName.getText() + "'";
         }
     }
+
 }
