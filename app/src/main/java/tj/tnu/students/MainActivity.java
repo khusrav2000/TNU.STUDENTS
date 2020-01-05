@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -97,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements LessonFragment.On
 
     @Override
     public void onSelectSemester(int semesterId, int position) {
+        findViewById(R.id.not_courses_information).setVisibility(View.GONE);
+        findViewById(R.id.load_courses).setVisibility(View.VISIBLE);
+        findViewById(R.id.list).setVisibility(View.GONE);
+
         downloadAndSetCoursesData();
         List<Semester> semestersList = Data.getSemesters();
         for (Semester semesters : semestersList){
@@ -126,6 +131,11 @@ public class MainActivity extends AppCompatActivity implements LessonFragment.On
 
         lessonFragment.setSemestersAdapter();
         lessonFragment.dismissSelectSemester();
+    }
+
+    @Override
+    public void refreshActivity() {
+        recreate();
     }
 
     private void updateCoursesAdapter() {

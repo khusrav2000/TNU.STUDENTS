@@ -13,6 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -25,6 +30,8 @@ import tj.tnu.students.data.model.WeekPoint;
 public class CoursePoints extends AppCompatActivity {
 
     Course course;
+    public static InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,62 @@ public class CoursePoints extends AppCompatActivity {
             public void onClick(View v){
                 //onBackPressed();// возврат на предыдущий activity
                 onBackPressed();
+            }
+        });
+
+
+        MobileAds.initialize(this,
+                "ca-app-pub-9215215947095346~9160437829");
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-9215215947095346/4264809146");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+        System.out.println(mInterstitialAd.isLoaded());
+        if (mInterstitialAd.isLoaded()){
+            System.out.println("YES-------------");
+            mInterstitialAd.show();
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        }
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                System.out.println("Code to be executed when an ad finishes loading.");
+                if (mInterstitialAd.isLoaded()){
+                    System.out.println("YES-------------");
+                    mInterstitialAd.show();
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                }
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                System.out.println("ERROR CODE = " + errorCode);
+                System.out.println("Code to be executed when an ad request fails.");
+                startTestMetod();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
             }
         });
 
@@ -211,5 +274,10 @@ public class CoursePoints extends AppCompatActivity {
         examePoint.setText(course.getExamPoint() + " / 100");
 
         totalPoints.setText(course.getTotalPoints() + " / " + course.getMark());
+    }
+
+    private void startTestMetod() {
+        TextView textView = new TextView(this);
+        findViewById(R.id.rating_one_week_points).setVisibility(View.GONE);
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TNU.STUDENTS</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Добро пожаловать "</string>
+    <string name="invalid_username">Неверное имя пользователя</string>
+    <string name="invalid_password">Неправильный пароль</string>
+    <string name="login_failed">Неправильный имя пользователя или пароль</string>
+    <string name="university_name">Таджикский национальный университет</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="lesson_name">Названые предмета</string>
+    <string name="teacher_name">Имя преподователья</string>
+    <string name="points">Баллы</string>
+    <string name="title_points">Баллы</string>
+    <string name="title_profile">Профиль</string>
+    <string name="course_name">Названые предмета</string>
+    <string name="rating_one">РЕЙТИНГ 1</string>
+    <string name="example_rating_points">30/100</string>
+    <string name="rating_two">РЕЙТИНГ 2</string>
+    <string name="example_exam_points">13/20</string>
+    <string name="exam_text">ЭКЗАМЕН</string>
+    <string name="select_semester">Выберите семестер</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tnu_student">TNU.STUDENT</string>
+    <string name="full_name">Полное имя</string>
+    <string name="faculty">Факультет</string>
+    <string name="specialty">Специальность</string>
+    <string name="specialty_and_code">Специальность</string>
+    <string name="text_faculty">Факультет</string>
+    <string name="server_not_work">Сервер не работатеть</string>
+    <string name="internet_not_available">Проверте подключение к интернету</string>
+    <string name="error_load_data">Ошибка при загрузке данных.</string>
+    <string name="traning_form">Форма обучения</string>
+    <string name="training_form">Форма обучения</string>
+    <string name="training_level">Уровень подготовки</string>
+    <string name="course_and_training_period">Курс / период обучения</string>
+    <string name="group">Группа</string>
+    <string name="year_entrance">Год поступления</string>
+    <string name="total_points">БАЛЛ / ОЦЕНКА общий </string>
+</resources>

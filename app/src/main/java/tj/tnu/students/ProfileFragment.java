@@ -1,6 +1,7 @@
 package tj.tnu.students;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,6 +21,10 @@ public class ProfileFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    public static final String APP_PREFERENCES = "SkipLoginPhone";
+    public static final String APP_LANGUAGE = "language";
+    SharedPreferences skipLoginPhone;
+    int lang;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -43,6 +48,9 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        skipLoginPhone  = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        lang = skipLoginPhone.getInt(APP_LANGUAGE, 0);
+
         Profile profile = Data.getProfile();
         TextView fullName = view.findViewById(R.id.full_name);
         TextView recordBookNumber = view.findViewById(R.id.record_book_number);
@@ -53,10 +61,17 @@ public class ProfileFragment extends Fragment {
         TextView courseAndTrainingPeriod = view.findViewById(R.id.course_and_training_period);
         TextView group = view.findViewById(R.id.group);
         TextView yearEntrance = view.findViewById(R.id.year_entrance);
-        fullName.setText(profile.getFullName().getTjText());
+        if (lang == 2){
+            fullName.setText(profile.getFullName().getRuText());
+            faculty.setText(profile.getFaculty().getRuText());
+            specialty.setText(profile.getSpecialty().getRuText() + " (" + profile.getCodeSpecialty() + ")");
+        } else {
+            fullName.setText(profile.getFullName().getTjText());
+            faculty.setText(profile.getFaculty().getTjText());
+            specialty.setText(profile.getSpecialty().getTjText() + " (" + profile.getCodeSpecialty() + ")");
+        }
+
         recordBookNumber.setText(profile.getRecordbookNumber());
-        faculty.setText(profile.getFaculty().getTjText());
-        specialty.setText(profile.getSpecialty().getTjText() + " (" + profile.getCodeSpecialty() + ")");
         trainingFrom.setText(profile.getTrainingForm());
         trainingLevel.setText(profile.getTrainingLevel());
         courseAndTrainingPeriod.setText(profile.getCourse() + " / " + profile.getTrainingPeriod());

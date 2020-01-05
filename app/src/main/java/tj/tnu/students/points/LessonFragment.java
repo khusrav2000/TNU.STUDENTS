@@ -2,6 +2,8 @@ package tj.tnu.students.points;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,9 +11,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.util.Locale;
 
 import tj.tnu.students.Data;
 import tj.tnu.students.R;
@@ -32,7 +40,16 @@ public class LessonFragment extends Fragment {
     RecyclerView recyclerView;
     Dialog semesters;
     RecyclerView semestersRecyclerView;
+    Dialog language;
 
+    public static final String APP_PREFERENCES = "SkipLoginPhone";
+    public static final String APP_LANGUAGE = "language";
+    SharedPreferences skipLoginPhone;
+    int lang;
+    ImageView selectLanguage;
+
+    ProgressBar progressLoadCourses;
+    TextView notCoursesInformation;
 
     public LessonFragment() {
     }
@@ -60,12 +77,34 @@ public class LessonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lesson_list, container, false);
 
 
+
+        skipLoginPhone  = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        lang = skipLoginPhone.getInt(APP_LANGUAGE, 0);
+        selectLanguage = view.findViewById(R.id.select_language);
+        progressLoadCourses = view.findViewById(R.id.load_courses);
+        notCoursesInformation = view.findViewById(R.id.not_courses_information);
+
+        if (lang == 1){
+            selectLanguage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_tajikistan));
+        } else if (lang == 2){
+            selectLanguage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_russia));
+        } else {
+            selectLanguage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_tajikistan));
+        }
         view.findViewById(R.id.button_select_semester).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 semesters.show();
             }
         });
+
+        selectLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                language.show();
+            }
+        });
+
         // Set the adapter
 
 
@@ -89,10 +128,65 @@ public class LessonFragment extends Fragment {
             }
         });
 
+        language = new Dialog(getContext());
+        language.setContentView(R.layout.fragment_language);
+        language.getWindow().setBackgroundDrawable(getActivity().getDrawable(R.drawable.select_semester_background));
+
+        language.findViewById(R.id.tajik_language).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLanguage(1);
+                selectLanguage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_tajikistan));
+                language.dismiss();
+            }
+        });
+
+        language.findViewById(R.id.russian_language).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLanguage(2);
+                selectLanguage.setImageDrawable(getActivity().getDrawable(R.drawable.ic_russia));
+                language.dismiss();
+            }
+        });
+
+        language.findViewById(R.id.select_language_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                language.dismiss();
+            }
+        });
+
         setSemestersAdapter();
         setCourseAdapter();
 
         return view;
+    }
+
+    private void setLanguage(int lang) {
+        SharedPreferences.Editor editor = skipLoginPhone.edit();
+        editor.putInt(APP_LANGUAGE, lang);
+        this.lang = lang;
+        editor.apply();
+        if (lang == 1){
+            Resources res = this.getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.setLocale(new Locale("tg".toLowerCase())); // API 17+ only.
+            // Use conf.locale = new Locale(...) if targeting lower versions
+            res.updateConfiguration(conf, dm);
+        } else if (lang == 2){
+            Resources res = this.getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.setLocale(new Locale("ru".toLowerCase())); // API 17+ only.
+            // Use conf.locale = new Locale(...) if targeting lower versions
+            res.updateConfiguration(conf, dm);
+        }
+        mListener.refreshActivity();
+
     }
 
     public void setSemestersAdapter() {
@@ -101,8 +195,14 @@ public class LessonFragment extends Fragment {
     }
 
     public void setCourseAdapter() {
-        if (Data.getCourses() != null) {
-            recyclerView.setAdapter(new MylessonRecyclerViewAdapter(Data.getCourses(), mListener));
+        progressLoadCourses.setVisibility(View.GONE);
+        if (Data.getCourses() != null && Data.getCourses().size() > 0) {
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(new MylessonRecyclerViewAdapter(lang, Data.getCourses(), mListener));
+            notCoursesInformation.setVisibility(View.GONE);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            notCoursesInformation.setVisibility(View.VISIBLE);
         }
     }
 
@@ -134,6 +234,7 @@ public class LessonFragment extends Fragment {
         // TODO: Update argument type and name
         void onListFragmentInteraction(int position);
         void onSelectSemester(int semesterId, int position);
+        void refreshActivity();
     }
 
 }

@@ -1,5 +1,7 @@
 package tj.tnu.students;
 
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.List;
 
 import tj.tnu.students.data.model.Course;
@@ -10,6 +12,7 @@ public class Data {
     public static List<Course> cours;
     public static List<Semester> semesters;
     public static Profile profile;
+    //public static InterstitialAd mInterstitialAd;
 
     public static Profile getProfile() {
         return profile;

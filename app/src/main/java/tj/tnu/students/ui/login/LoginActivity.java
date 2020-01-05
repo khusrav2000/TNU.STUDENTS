@@ -3,6 +3,7 @@ package tj.tnu.students.ui.login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import tj.tnu.students.data.ConnectivityHelper;
 import tj.tnu.students.data.model.Course;
 import tj.tnu.students.data.model.Message;
 
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,8 +24,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,10 +51,37 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar loadingProgressBar;
     public static final String APP_PREFERENCES = "SkipLoginPhone";
     public static final String APP_TOKEN = "getToken";
+    public static final String APP_LANGUAGE = "language";
     SharedPreferences skipLoginPhone;
     String token = "";
+    int language;
+    TextView tryAgain;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        skipLoginPhone  = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        token    = skipLoginPhone.getString(APP_TOKEN, "");
+        language = skipLoginPhone.getInt(APP_LANGUAGE, 0);
+
+        if (language == 2){
+            Resources res = this.getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.setLocale(new Locale("ru".toLowerCase())); // API 17+ only.
+            // Use conf.locale = new Locale(...) if targeting lower versions
+            res.updateConfiguration(conf, dm);
+        } else {
+            Resources res = this.getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.setLocale(new Locale("tg".toLowerCase())); // API 17+ only.
+            // Use conf.locale = new Locale(...) if targeting lower versions
+            res.updateConfiguration(conf, dm);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -56,9 +89,11 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
         loadingProgressBar = findViewById(R.id.loading);
+        tryAgain = findViewById(R.id.try_again);
 
-        skipLoginPhone  = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        token    = skipLoginPhone.getString(APP_TOKEN, "");
+
+
+
         if (token != ""){
             findViewById(R.id.login_layout).setVisibility(View.GONE);
             checkLogin();
@@ -80,6 +115,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO: Здесь все не впорядке.))
                 checkLogin();
+            }
+        });
+
+        tryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkLogin();
+                tryAgain.setVisibility(View.GONE);
             }
         });
     }
@@ -115,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(R.string.server_not_work);
                 }
 
+                tryAgain.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -129,6 +174,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
+        //Data.mInterstitialAd = new InterstitialAd(this);
+        //Data.mInterstitialAd.setAdUnitId("ca-app-pub-9215215947095346/4264809146");
+        //Data.mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
         loadingProgressBar.setVisibility(View.GONE);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -208,6 +257,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 loadingProgressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), getText(R.string.error_load_data), Toast.LENGTH_LONG).show();
+                tryAgain.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -107,11 +107,28 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="64dp"
                 android:visibility="gone"
+                android:indeterminateDrawable="@drawable/progress_bar_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/password"
                 app:layout_constraintStart_toStartOf="@+id/password"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.3" />
+                app:layout_constraintVertical_bias="0.3"
+                android:alpha="0.6"/>
+
+            <TextView
+                android:id="@+id/try_again"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="64dp"
+                android:visibility="gone"
+                android:text="@string/try_again"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:alpha="0.6"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package tj.tnu.students.points;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,15 +24,22 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
     private final List<Course> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MylessonRecyclerViewAdapter(List<Course> items, OnListFragmentInteractionListener listener) {
+
+    int lang = 0;
+
+    public MylessonRecyclerViewAdapter(int lang,List<Course> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
+        this.lang = lang;
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_lesson, parent, false);
+
+
         return new ViewHolder(view);
     }
 
@@ -38,8 +47,14 @@ public class MylessonRecyclerViewAdapter extends RecyclerView.Adapter<MylessonRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.courseName.setText(mValues.get(position).getSubjectName().getTjText());
-        holder.teacherName.setText(mValues.get(position).getTeacherName().getTjText());
+
+        if (lang == 2) {
+            holder.courseName.setText(mValues.get(position).getSubjectName().getRuText());
+            holder.teacherName.setText(mValues.get(position).getTeacherName().getRuText());
+        } else {
+            holder.courseName.setText(mValues.get(position).getSubjectName().getTjText());
+            holder.teacherName.setText(mValues.get(position).getTeacherName().getTjText());
+        }
 
 
         holder.pointsProgress.setProgress(Integer.valueOf((int) holder.mItem.getTotalPoints()));
