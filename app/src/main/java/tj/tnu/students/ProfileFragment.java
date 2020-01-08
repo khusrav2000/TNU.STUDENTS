@@ -1,6 +1,7 @@
 package tj.tnu.students;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import tj.tnu.students.data.model.Profile;
+import tj.tnu.students.ui.login.LoginActivity;
 
 
 public class ProfileFragment extends Fragment {
@@ -23,6 +25,7 @@ public class ProfileFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     public static final String APP_PREFERENCES = "SkipLoginPhone";
     public static final String APP_LANGUAGE = "language";
+    public static final String APP_TOKEN = "getToken";
     SharedPreferences skipLoginPhone;
     int lang;
 
@@ -61,6 +64,7 @@ public class ProfileFragment extends Fragment {
         TextView courseAndTrainingPeriod = view.findViewById(R.id.course_and_training_period);
         TextView group = view.findViewById(R.id.group);
         TextView yearEntrance = view.findViewById(R.id.year_entrance);
+        TextView logout = view.findViewById(R.id.logout);
         if (lang == 2){
             fullName.setText(profile.getFullName().getRuText());
             faculty.setText(profile.getFaculty().getRuText());
@@ -78,7 +82,22 @@ public class ProfileFragment extends Fragment {
         group.setText(profile.getGroup());
         yearEntrance.setText(profile.getYearUniversityEntrance());
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLogin();
+            }
+        });
+
         return view;
+    }
+
+    private void startLogin() {
+        SharedPreferences.Editor editor = skipLoginPhone.edit();
+        editor.putString(APP_TOKEN, "");
+        editor.apply();
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

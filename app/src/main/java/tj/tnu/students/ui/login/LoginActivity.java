@@ -174,9 +174,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        //Data.mInterstitialAd = new InterstitialAd(this);
-        //Data.mInterstitialAd.setAdUnitId("ca-app-pub-9215215947095346/4264809146");
-        //Data.mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        Data.mInterstitialAd = new InterstitialAd(this);
+        //Data.mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); // TEST
+        Data.mInterstitialAd.setAdUnitId("ca-app-pub-5583392303902725/9727074724");
+        Data.mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         loadingProgressBar.setVisibility(View.GONE);
         Intent intent = new Intent(this, MainActivity.class);

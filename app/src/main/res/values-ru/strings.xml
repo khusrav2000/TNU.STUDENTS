@@ -33,7 +33,7 @@
     <string name="specialty">Специальность</string>
     <string name="specialty_and_code">Специальность</string>
     <string name="text_faculty">Факультет</string>
-    <string name="server_not_work">Сервер не работатеть</string>
+    <string name="server_not_work">Сервер недоступен</string>
     <string name="internet_not_available">Проверте подключение к интернету</string>
     <string name="error_load_data">Ошибка при загрузке данных.</string>
     <string name="traning_form">Форма обучения</string>
@@ -43,4 +43,7 @@
     <string name="group">Группа</string>
     <string name="year_entrance">Год поступления</string>
     <string name="total_points">БАЛЛ / ОЦЕНКА общий </string>
+    <string name="not_courses_information">Нет данных для выбранного семестра</string>
+    <string name="logout">Выйти</string>
+    <string name="try_again">Попробовать заново.</string>
 </resources>

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,12 +32,18 @@ import tj.tnu.students.data.model.WeekPoint;
 public class CoursePoints extends AppCompatActivity {
 
     Course course;
-    public static InterstitialAd mInterstitialAd;
+    public static final String APP_PREFERENCES = "SkipLoginPhone";
+    public static final String APP_LANGUAGE = "language";
+    SharedPreferences skipLoginPhone;
+    int language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_points);
+
+        skipLoginPhone  = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        language = skipLoginPhone.getInt(APP_LANGUAGE, 0);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.course_points_detail);
 
@@ -61,58 +69,23 @@ public class CoursePoints extends AppCompatActivity {
         });
 
 
-        MobileAds.initialize(this,
-                "ca-app-pub-9215215947095346~9160437829");
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-9215215947095346/4264809146");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
-        System.out.println(mInterstitialAd.isLoaded());
-        if (mInterstitialAd.isLoaded()){
+
+        System.out.println(Data.mInterstitialAd.isLoaded());
+        if (Data.mInterstitialAd.isLoaded()){
             System.out.println("YES-------------");
-            mInterstitialAd.show();
-            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            Data.mInterstitialAd.show();
+
         }
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                System.out.println("Code to be executed when an ad finishes loading.");
-                if (mInterstitialAd.isLoaded()){
-                    System.out.println("YES-------------");
-                    mInterstitialAd.show();
-                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                }
-            }
 
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-                System.out.println("ERROR CODE = " + errorCode);
-                System.out.println("Code to be executed when an ad request fails.");
-                startTestMetod();
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
+        Data.mInterstitialAd.setAdListener(new AdListener() {
 
             @Override
             public void onAdClosed() {
                 // Code to be executed when the interstitial ad is closed.
+                System.out.println("CLOSED !!!!!!!!!!!!!!!!!!");
+                Data.mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
         });
 
@@ -128,7 +101,14 @@ public class CoursePoints extends AppCompatActivity {
         TextView courseName = findViewById(R.id.course_name);
         TextView totalPoints = findViewById(R.id.total_points_and_mark);
 
-        courseName.setText(course.getSubjectName().getTjText());
+        String weekText = "Ҳафтаи ";
+        if (language == 2){
+            courseName.setText(course.getSubjectName().getRuText());
+            weekText = "Неделя ";
+        } else {
+            courseName.setText(course.getSubjectName().getTjText());
+            weekText = "Ҳафтаи ";
+        }
 
         ratingOnePoint.setText(String.valueOf(course.getFirstRatingPoint()));
         Resources r = this.getResources();
@@ -162,7 +142,7 @@ public class CoursePoints extends AppCompatActivity {
             weekNameParams.setMarginStart(px);
 
             weekName.setLayoutParams(weekNameParams);
-            weekName.setText("Ҳафтаи " + weekPoint.getWeekNumber());
+            weekName.setText(weekText + weekPoint.getWeekNumber());
             weekName.setTextColor(getResources().getColor(R.color.white));
             weekName.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
             weekName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
@@ -177,7 +157,7 @@ public class CoursePoints extends AppCompatActivity {
 
             weekPointParams.setMarginEnd(px);
             weekPointText.setLayoutParams(weekPointParams);
-            weekPointText.setText(weekPoint.getPoint() + "/" + weekPoint.getMaxPoint());
+            weekPointText.setText(String.valueOf(weekPoint.getPoint()));
             weekPointText.setTextColor(getResources().getColor(R.color.points_color));
             weekPointText.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
             weekPointText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
@@ -232,7 +212,7 @@ public class CoursePoints extends AppCompatActivity {
             weekNameParams.setMarginStart(px);
 
             weekName.setLayoutParams(weekNameParams);
-            weekName.setText("Ҳафтаи " + weekPoint.getWeekNumber());
+            weekName.setText(weekText + weekPoint.getWeekNumber());
             weekName.setTextColor(getResources().getColor(R.color.white));
             weekName.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
             weekName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
@@ -247,7 +227,7 @@ public class CoursePoints extends AppCompatActivity {
 
             weekPointParams.setMarginEnd(px);
             weekPointText.setLayoutParams(weekPointParams);
-            weekPointText.setText(weekPoint.getPoint() + "/" + weekPoint.getMaxPoint());
+            weekPointText.setText(weekPoint.getPoint() + "");
             weekPointText.setTextColor(getResources().getColor(R.color.points_color));
             weekPointText.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
             weekPointText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

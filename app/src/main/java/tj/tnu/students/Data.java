@@ -12,7 +12,7 @@ public class Data {
     public static List<Course> cours;
     public static List<Semester> semesters;
     public static Profile profile;
-    //public static InterstitialAd mInterstitialAd;
+    public static InterstitialAd mInterstitialAd;
 
     public static Profile getProfile() {
         return profile;

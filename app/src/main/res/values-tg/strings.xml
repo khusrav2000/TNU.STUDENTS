@@ -35,12 +35,15 @@
     <string name="text_faculty">Факултет</string>
     <string name="server_not_work">Сервер дастнораст аст.</string>
     <string name="internet_not_available">Пайвастшавии интернети худро бисанҷед.</string>
-    <string name="error_load_data">Ошибка при загрузке данных.</string>
+    <string name="error_load_data">Хатоги дар гирифтани маълумот.</string>
     <string name="traning_form">Шакли хониш</string>
     <string name="training_form">Шакли хониш</string>
     <string name="training_level">Сатҳи маълумот</string>
     <string name="course_and_training_period">Курс / давраи таҳсил</string>
     <string name="group">Гуруҳ</string>
     <string name="year_entrance">Соли дохилшави</string>
-    <string name="total_points">БАЛЛИ / БАҲОИ НИҲОИ</string>
+    <string name="total_points">ХОЛ / БАҲО</string>
+    <string name="not_courses_information">Маълумот пайдо нашуд.</string>
+    <string name="logout">Баромад</string>
+    <string name="try_again">Аз нав кушиш кунед.</string>
 </resources>
